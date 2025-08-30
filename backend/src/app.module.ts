@@ -4,7 +4,11 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user.module';
+import { ProfileModule } from './modules/profile.module';
 import { ContentModule } from './modules/content.module';
+import { PlanModule } from './modules/plan.module';
+import { SubscriptionModule } from './modules/subscription.module';
+import { GenreModule } from './modules/genre.module';
 import * as entities from './entities';
 
 @Module({
@@ -24,7 +28,11 @@ import * as entities from './entities';
       logging: process.env.NODE_ENV === 'development',
     }),
     UserModule,
+    ProfileModule,
     ContentModule,
+    PlanModule,
+    SubscriptionModule,
+    GenreModule,
   ],
   controllers: [AppController],
   providers: [AppService],
