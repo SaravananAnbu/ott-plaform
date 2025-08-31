@@ -13,15 +13,16 @@ export enum ContentCategory {
 export enum MaturityRating {
   G = 'G',
   PG = 'PG',
-  PG13 = 'PG-13',
+  PG_13 = 'PG-13',
+  SIXTEEN_PLUS = '16+',
+  EIGHTEEN_PLUS = '18+',
   R = 'R',
-  NC17 = 'NC-17',
-  U = 'U',
-  A = 'A',
+  NC_17 = 'NC-17',
 }
 
 export enum ContentStatus {
   DRAFT = 'draft',
+  SCHEDULED = 'scheduled',
   PUBLISHED = 'published',
   ARCHIVED = 'archived',
 }
@@ -41,6 +42,27 @@ export interface Content {
   bannerUrl?: string;
   thumbnailUrl?: string;
   adUrl?: string;
+  videoUrl?: string;
+  director?: string;
+  producer?: string;
+  writer?: string;
+  studio?: string;
+  countryOfOrigin?: string;
+  tags?: string;
+  isPremium: boolean;
+  isFeatured: boolean;
+  viewCount: number;
+  likeCount: number;
+  dislikeCount: number;
+  ageRestriction?: number;
+  subtitleLanguages?: string;
+  audioLanguages?: string;
+  videoQuality?: string;
+  fileSizeMb?: number;
+  contentWarning?: string;
+  scheduledReleaseDate?: string;
+  playerId?: number;
+  providerId?: number;
   status: ContentStatus;
   createdAt: string;
   updatedAt: string;
@@ -60,7 +82,24 @@ export interface CreateContentDto {
   bannerUrl?: string;
   thumbnailUrl?: string;
   adUrl?: string;
+  videoUrl?: string;
+  director?: string;
+  producer?: string;
+  writer?: string;
+  studio?: string;
+  countryOfOrigin?: string;
+  tags?: string;
+  isPremium?: boolean;
+  isFeatured?: boolean;
+  ageRestriction?: number;
+  subtitleLanguages?: string;
+  audioLanguages?: string;
+  videoQuality?: string;
+  fileSizeMb?: number;
+  contentWarning?: string;
+  scheduledReleaseDate?: string;
   playerId?: number;
+  providerId?: number;
   status?: ContentStatus;
 }
 
@@ -78,7 +117,24 @@ export interface UpdateContentDto {
   bannerUrl?: string;
   thumbnailUrl?: string;
   adUrl?: string;
+  videoUrl?: string;
+  director?: string;
+  producer?: string;
+  writer?: string;
+  studio?: string;
+  countryOfOrigin?: string;
+  tags?: string;
+  isPremium?: boolean;
+  isFeatured?: boolean;
+  ageRestriction?: number;
+  subtitleLanguages?: string;
+  audioLanguages?: string;
+  videoQuality?: string;
+  fileSizeMb?: number;
+  contentWarning?: string;
+  scheduledReleaseDate?: string;
   playerId?: number;
+  providerId?: number;
   status?: ContentStatus;
 }
 

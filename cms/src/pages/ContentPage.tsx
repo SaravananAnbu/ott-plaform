@@ -21,6 +21,7 @@ import {
   DeleteOutlined,
   ReloadOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import {
   contentService,
   Content,
@@ -38,6 +39,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const ContentPage: React.FC = () => {
+  const navigate = useNavigate();
   const [content, setContent] = useState<Content[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -62,18 +64,11 @@ const ContentPage: React.FC = () => {
   };
 
   const handleCreate = () => {
-    setEditingContent(null);
-    form.resetFields();
-    setModalVisible(true);
+    navigate('/content/create');
   };
 
   const handleEdit = (content: Content) => {
-    setEditingContent(content);
-    form.setFieldsValue({
-      ...content,
-      releaseDate: content.releaseDate ? dayjs(content.releaseDate) : null,
-    });
-    setModalVisible(true);
+    navigate(`/content/edit/${content.contentId}`);
   };
 
   const handleDelete = async (contentId: number) => {

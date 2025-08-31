@@ -1,20 +1,53 @@
 import apiClient from './api';
 
+// Genre Status Enum
+export enum GenreStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  HIDDEN = 'hidden',
+}
+
+// Genre Type
 export interface Genre {
   genreId: number;
-  name: string;
+  genreName: string;
   description?: string;
-  createdAt: string;
+  colorCode?: string;
+  iconUrl?: string;
+  imageUrl?: string;
+  keywords?: string[];
+  isFeatured: boolean;
+  sortOrder?: number;
+  parentGenreId?: number;
+  status: GenreStatus;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface CreateGenreDto {
-  name: string;
+  genreName: string;
   description?: string;
+  colorCode?: string;
+  iconUrl?: string;
+  imageUrl?: string;
+  keywords?: string[];
+  isFeatured?: boolean;
+  sortOrder?: number;
+  parentGenreId?: number;
+  status?: GenreStatus;
 }
 
 export interface UpdateGenreDto {
-  name?: string;
+  genreName?: string;
   description?: string;
+  colorCode?: string;
+  iconUrl?: string;
+  imageUrl?: string;
+  keywords?: string[];
+  isFeatured?: boolean;
+  sortOrder?: number;
+  parentGenreId?: number;
+  status?: GenreStatus;
 }
 
 export const genreService = {

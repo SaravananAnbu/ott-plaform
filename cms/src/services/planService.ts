@@ -1,32 +1,92 @@
 import apiClient from './api';
 
+export enum PlanType {
+  FREE = 'free',
+  BASIC = 'basic',
+  STANDARD = 'standard',
+  PREMIUM = 'premium',
+  FAMILY = 'family',
+}
+
+export enum PlanStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  DEPRECATED = 'deprecated',
+}
+
 export interface Plan {
   planId: number;
   planName: string;
+  description?: string;
   priceCents: number;
   currency: string;
+  type: PlanType;
   resolution: string;
   screensAllowed: number;
   downloadsAllowed: boolean;
+  adsSupported: boolean;
+  offlineViewing: boolean;
+  maxDownloadQuality?: string;
+  streamingQuality: string;
+  contentAccessLevel: string;
+  simultaneousStreams: number;
+  familySharing: boolean;
+  parentalControls: boolean;
+  billingCycleMonths: number;
+  freeTrialDays: number;
+  status: PlanStatus;
+  isPopular: boolean;
+  sortOrder: number;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreatePlanDto {
   planName: string;
+  description?: string;
   priceCents: number;
   currency?: string;
+  type?: PlanType;
   resolution: string;
   screensAllowed?: number;
   downloadsAllowed?: boolean;
+  adsSupported?: boolean;
+  offlineViewing?: boolean;
+  maxDownloadQuality?: string;
+  streamingQuality: string;
+  contentAccessLevel?: string;
+  simultaneousStreams?: number;
+  familySharing?: boolean;
+  parentalControls?: boolean;
+  billingCycleMonths?: number;
+  freeTrialDays?: number;
+  status?: PlanStatus;
+  isPopular?: boolean;
+  sortOrder?: number;
 }
 
 export interface UpdatePlanDto {
   planName?: string;
+  description?: string;
   priceCents?: number;
   currency?: string;
+  type?: PlanType;
   resolution?: string;
   screensAllowed?: number;
   downloadsAllowed?: boolean;
+  adsSupported?: boolean;
+  offlineViewing?: boolean;
+  maxDownloadQuality?: string;
+  streamingQuality?: string;
+  contentAccessLevel?: string;
+  simultaneousStreams?: number;
+  familySharing?: boolean;
+  parentalControls?: boolean;
+  billingCycleMonths?: number;
+  freeTrialDays?: number;
+  status?: PlanStatus;
+  isPopular?: boolean;
+  sortOrder?: number;
 }
 
 export const planService = {

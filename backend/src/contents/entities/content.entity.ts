@@ -25,6 +25,7 @@ import { Rating } from '../../entities/rating.entity';
 import { WatchHistory } from '../../entities/watch-history.entity';
 import { Recommendation } from '../../entities/recommendation.entity';
 import { ContentPlacement } from '../../entities/content-placement.entity';
+import { Provider } from '../../entities/provider.entity';
 
 @Entity('content')
 export class Content {
@@ -84,9 +85,70 @@ export class Content {
   @Column({ name: 'ad_url', type: 'text', nullable: true })
   adUrl: string;
 
+  @Column({ name: 'video_url', type: 'text', nullable: true })
+  videoUrl: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  director: string;
+
+  @Column({ type: 'varchar', length: 300, nullable: true })
+  producer: string;
+
+  @Column({ type: 'varchar', length: 300, nullable: true })
+  writer: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  studio: string;
+
+  @Column({ name: 'country_of_origin', type: 'varchar', length: 100, nullable: true })
+  countryOfOrigin: string;
+
+  @Column({ type: 'text', nullable: true })
+  tags: string; // JSON array of string tags
+
+  @Column({ name: 'is_premium', type: 'boolean', default: false })
+  isPremium: boolean;
+
+  @Column({ name: 'is_featured', type: 'boolean', default: false })
+  isFeatured: boolean;
+
+  @Column({ name: 'view_count', type: 'bigint', default: 0 })
+  viewCount: number;
+
+  @Column({ name: 'like_count', type: 'integer', default: 0 })
+  likeCount: number;
+
+  @Column({ name: 'dislike_count', type: 'integer', default: 0 })
+  dislikeCount: number;
+
+  @Column({ name: 'age_restriction', type: 'integer', nullable: true })
+  ageRestriction: number;
+
+  @Column({ name: 'subtitle_languages', type: 'text', nullable: true })
+  subtitleLanguages: string; // JSON array of language codes
+
+  @Column({ name: 'audio_languages', type: 'text', nullable: true })
+  audioLanguages: string; // JSON array of language codes
+
+  @Column({ name: 'video_quality', type: 'varchar', length: 20, nullable: true })
+  videoQuality: string; // HD, FHD, 4K, etc.
+
+  @Column({ name: 'file_size_mb', type: 'integer', nullable: true })
+  fileSizeMb: number;
+
+  @Column({ name: 'content_warning', type: 'text', nullable: true })
+  contentWarning: string;
+
+  @Column({ name: 'scheduled_release_date', type: 'timestamptz', nullable: true })
+  scheduledReleaseDate: Date;
+
   @ManyToOne(() => Player, { onDelete: 'SET NULL', nullable: true })
   @JoinColumn({ name: 'player_id' })
   player: Player;
+
+  @ManyToOne(() => Provider, { onDelete: 'SET NULL', nullable: true })
+  @JoinColumn({ name: 'provider_id' })
+  provider: Provider;
 
   @Column({
     type: 'enum',
