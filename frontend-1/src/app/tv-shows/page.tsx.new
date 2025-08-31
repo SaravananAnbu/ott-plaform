@@ -1,0 +1,257 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Content } from '@/types';
+import { fetchAllMovies } from '@/services/movieService';
+import { Play, Plus, Grid, List, Calendar, Star, Filter } from 'lucide-react';
+import { AppLayout } from '@/components/AppLayout';
+
+export default function TVShowsPage() {
+  const [allShows, setAllShows] = useState<Content[]>([]);
+  const [filteredShows, setFilteredShows] = useState<Content[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('all');
+  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [selectedRating, setSelectedRating] = useState('all');
+  const [sortBy, setSortBy] = useState('popularity');
+  const [showFilters, setShowFilters] = useState(false);
+  const [myList, setMyList] = useState<string[]>([]);
+
+  // Load shows from movie API and transform to TV shows
+  useEffect(() => {
+    const loadTVShows = async () => {
+      try {
+        setLoading(true);
+        const movies = await fetchAllMovies();
+        // Transform movies to series/TV shows for this page
+        const tvShows = movies.map(movie => ({
+          ...movie,
+          type: 'series' as const,
+          category: 'TV_SHOW' as const
+        }));
+        setAllShows(tvShows);
+      } catch (error) {
+        console.error('Failed to load TV shows:', error);
+        setAllShows([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTVShows();
+  }, []);
+
+  // Filter and sort TV shows
+  useEffect(() => {
+    let filtered = allShows.filter(show => {
+      const matchesSearch = show.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          (show.description && show.description.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesGenre = selectedGenre === 'all' || (show.genre && show.genre.toLowerCase().includes(selectedGenre.toLowerCase()));
+      const matchesStatus = selectedStatus === 'all'; // Simplified for API data
+      const matchesRating = selectedRating === 'all' || show.maturityRating === selectedRating;
+
+      return matchesSearch && matchesGenre && matchesStatus && matchesRating;
+    });
+
+    // Sort shows
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case 'rating':
+          return parseFloat(b.rating || '0') - parseFloat(a.rating || '0');
+        case 'newest':
+          return parseInt(b.year || '0') - parseInt(a.year || '0');
+        case 'title':
+          return a.title.localeCompare(b.title);
+        default: // popularity
+          return (b.viewCount || 0) - (a.viewCount || 0);
+      }
+    });
+
+    setFilteredShows(filtered);
+  }, [allShows, searchQuery, selectedGenre, selectedStatus, selectedRating, sortBy]);
+
+  const handleAddToList = (content: Content) => {
+    setMyList(prev => {
+      const contentId = content.id || String(content.contentId);
+      if (contentId && prev.includes(contentId)) {
+        return prev.filter(id => id !== contentId);
+      } else if (contentId) {
+        return [...prev, contentId];
+      }
+      return prev;
+    });
+  };
+
+  const handlePlay = (content: Content) => {
+    const contentId = content.id || String(content.contentId);
+    if (contentId) {
+      window.location.href = `/content/${contentId}`;
+    }
+  };
+
+  const genres = ['all', 'drama', 'comedy', 'action', 'thriller', 'romance', 'sci-fi', 'fantasy', 'horror', 'documentary'];
+  const ratings = ['all', 'G', 'PG', 'PG-13', 'R', '16+', '18+'];
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="min-h-screen bg-black text-white">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="text-xl">Loading TV Shows...</div>
+            </div>
+          </div>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  return (
+    <AppLayout>
+      <div className="min-h-screen bg-black text-white">
+        <div className="container mx-auto px-4 py-8">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold mb-4 flex items-center gap-3">
+              <Tv className="h-10 w-10 text-red-500" />
+              TV Shows
+            </h1>
+            <p className="text-gray-300 text-lg">
+              Discover amazing series and shows ({filteredShows.length} available)
+            </p>
+          </div>
+
+          {/* Controls */}
+          <div className="mb-8 space-y-4">
+            {/* Search and View Toggle */}
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <input
+                  type="text"
+                  placeholder="Search TV shows..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-700 transition-colors"
+                >
+                  <Filter className="h-4 w-4" />
+                  Filters
+                </button>
+                <div className="flex bg-gray-800 rounded-lg border border-gray-700">
+                  <button
+                    onClick={() => setViewMode('grid')}
+                    className={cn(
+                      "p-2 rounded-l-lg transition-colors",
+                      viewMode === 'grid' ? "bg-red-500 text-white" : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    <Grid className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => setViewMode('list')}
+                    className={cn(
+                      "p-2 rounded-r-lg transition-colors",
+                      viewMode === 'list' ? "bg-red-500 text-white" : "text-gray-400 hover:text-white"
+                    )}
+                  >
+                    <List className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Filters Panel */}
+            {showFilters && (
+              <div className="bg-gray-900 rounded-lg p-6 border border-gray-700">
+                <h3 className="text-lg font-semibold mb-4">Filter & Sort</h3>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Genre</label>
+                    <select
+                      value={selectedGenre}
+                      onChange={(e) => setSelectedGenre(e.target.value)}
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                      {genres.map(genre => (
+                        <option key={genre} value={genre}>
+                          {genre.charAt(0).toUpperCase() + genre.slice(1)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Status</label>
+                    <select
+                      value={selectedStatus}
+                      onChange={(e) => setSelectedStatus(e.target.value)}
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                      <option value="all">All Statuses</option>
+                      <option value="ongoing">Currently Airing</option>
+                      <option value="completed">Completed</option>
+                      <option value="upcoming">Upcoming</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Rating</label>
+                    <select
+                      value={selectedRating}
+                      onChange={(e) => setSelectedRating(e.target.value)}
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                      {ratings.map(rating => (
+                        <option key={rating} value={rating}>
+                          {rating === 'all' ? 'All Ratings' : rating}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Sort By</label>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                    >
+                      <option value="popularity">Most Popular</option>
+                      <option value="rating">Highest Rated</option>
+                      <option value="newest">Latest Episodes</option>
+                      <option value="title">A-Z</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Content Grid/List */}
+          <div className="mb-8">
+            {loading ? (
+              <div className="flex justify-center items-center py-20">
+                <div className="text-xl text-gray-400">Loading TV shows...</div>
+              </div>
+            ) : filteredShows.length === 0 ? (
+              <div className="text-center py-20">
+                <Tv className="h-16 w-16 text-gray-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-400 mb-2">No TV shows found</h3>
+                <p className="text-gray-500">Try adjusting your filters or search query</p>
+              </div>
+            ) : (
+              <div className={cn(
+                viewMode === 'grid' 
+                  ? "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4"
+                  : "space-y-4"
+              )}>
+```

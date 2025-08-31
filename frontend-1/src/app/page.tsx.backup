@@ -1,0 +1,213 @@
+'use client';
+
+import {useState, useEffect} from 'react';
+import Header from '@/components/Header';
+import HeroSection from '@/components/HeroSection';
+import ContentRow from '@/components/ContentRow';
+import Footer from '@/components/Footer';
+import {Content} from '@/types';
+import {fetchAllMovies, transformMovieToContent} from '@/services/movieService';
+
+export default function HomePage() {
+    const [featuredContent,
+        setFeaturedContent] = useState < Content | null > (null);
+    const [myList,
+        setMyList] = useState < string[] > ([]);
+    const [loading,
+        setLoading] = useState(true);
+    const [contentRows,
+        setContentRows] = useState < {
+        title: string;
+        contents: Content[]
+    }[] > ([]);
+    const [profiles] = useState([
+        {
+            id: 1,
+            name: 'John',
+            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=cro' +
+                    'p&crop=face',
+            isKidsProfile: false
+        }, {
+            id: 2,
+            name: 'Kids',
+            avatar: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=150&h=150&fit=cro' +
+                    'p&crop=face',
+            isKidsProfile: true
+        }
+    ]);
+    const [currentProfile] = useState(profiles[0]);
+
+    useEffect(() => {
+        const loadContent = async() => {
+            try {
+                setLoading(true);
+
+                // Fetch all movies from API
+                const allMovies = await fetchAllMovies();
+                const allContent = allMovies.map(transformMovieToContent);
+
+                // Set featured content (highest rated movie)
+                const featuredMovie = allContent.sort((a, b) => parseFloat(b.rating || '0') - parseFloat(a.rating || '0'))[0];
+                setFeaturedContent(featuredMovie);
+
+                // Create content rows with different categories
+                const rows = [
+                    {
+                        title: 'Trending Now',
+                        contents: allContent.sort((a, b) => parseFloat(b.rating || '0') - parseFloat(a.rating || '0')).slice(0, 12)
+                    }, {
+                        title: 'New Releases',
+                        contents: allContent.sort((a, b) => parseInt(b.year || '0') - parseInt(a.year || '0')).slice(0, 10)
+                    }, {
+                        title: 'Popular Movies',
+                        contents: allContent
+                            .filter(c => c.type === 'movie')
+                            .slice(0, 8)
+                    }, {
+                        title: 'Action & Adventure',
+                        contents: allContent.filter(c => c.genre
+                            ?.toLowerCase().includes('action') || c.genre
+                                ?.toLowerCase().includes('adventure')).slice(0, 10)
+                    }, {
+                        title: 'Drama',
+                        contents: allContent
+                            .filter(c => c.genre
+                            ?.toLowerCase().includes('drama'))
+                            .slice(0, 8)
+                    }, {
+                        title: 'Comedy',
+                        contents: allContent
+                            .filter(c => c.genre
+                            ?.toLowerCase().includes('comedy'))
+                            .slice(0, 8)
+                    }, {
+                        title: 'Thriller & Crime',
+                        contents: allContent.filter(c => c.genre
+                            ?.toLowerCase().includes('thriller') || c.genre
+                                ?.toLowerCase().includes('crime')).slice(0, 8)
+                    }, {
+                        title: 'Romance',
+                        contents: allContent
+                            .filter(c => c.genre
+                            ?.toLowerCase().includes('romance'))
+                            .slice(0, 8)
+                    }
+                ];
+
+                setContentRows(rows.filter(row => row.contents.length > 0));
+            } catch (error) {
+                console.error('Error loading content:', error);
+                // Fallback to mock data if API fails
+                loadFallbackContent();
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadContent();
+    }, []);
+
+    const loadFallbackContent = () => {
+        // Fallback mock data
+        const fallbackContent : Content = {
+            id: '1',
+            title: 'Stranger Things',
+            description: 'When a young boy vanishes, a small town uncovers a mystery involving secret expe' +
+                    'riments.',
+            thumbnail: 'https://images.unsplash.com/photo-1489599735786-1ef58c2c7119?w=300&h=450&fit=cro' +
+                    'p',
+            backdrop: 'https://images.unsplash.com/photo-1489599735786-1ef58c2c7119?w=1920&h=1080&fit=c' +
+                    'rop',
+            duration: '45',
+            rating: '8.7',
+            year: '2016',
+            genre: 'Sci-Fi',
+            type: 'series',
+            status: 'published',
+            maturityRating: '16+',
+            cast: [],
+            trailerUrl: 'https://example.com/trailer1',
+            videoUrl: 'https://example.com/video1'
+        };
+
+        setFeaturedContent(fallbackContent);
+        setContentRows([
+            {
+                title: 'Trending Now',
+                contents: [fallbackContent]
+            }
+        ]);
+    };
+
+    const handlePlay = (content?: Content) => {
+        if (content) {
+            window.location.href = `/watch/${content.id}`;
+        } else if (featuredContent) {
+            window.location.href = `/watch/${featuredContent.id}`;
+        }
+    };
+
+    const handleMoreInfo = (content?: Content) => {
+        if (content) {
+            window.location.href = `/content/${content.id}`;
+        } else if (featuredContent) {
+            window.location.href = `/content/${featuredContent.id}`;
+        }
+    };
+
+    const handleAddToList = (content : Content) => {
+        setMyList(prev => {
+            if (prev.includes(content.id)) {
+                return prev.filter(id => id !== content.id);
+            } else {
+                return [
+                    ...prev,
+                    content.id
+                ];
+            }
+        });
+    };
+
+    const isInList = (contentId : string) => myList.includes(contentId);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="text-white text-xl">Loading content...</div>
+            </div>
+        );
+    }
+
+    if (!featuredContent) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="text-white text-xl">Failed to load content</div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen bg-black">
+            <Header profiles={profiles} currentProfile={currentProfile}/>
+
+            <HeroSection
+                content={featuredContent}
+                onPlay={() => handlePlay()}
+                onMoreInfo={() => handleMoreInfo()}
+                onAddToList={() => handleAddToList(featuredContent)}
+                isInList={isInList(featuredContent.id)}/> {/* Content Rows */}
+            <div className="space-y-8">
+                {contentRows.map((row, index) => (
+                    <ContentRow
+                        key={index}
+                        title={row.title}
+                        contents={row.contents}
+                        onContentSelect={handleMoreInfo}
+                        onPlay={handlePlay}
+                        onAddToList={handleAddToList}
+                        isInList={isInList}/>))}
+                </div>s
+            <Footer/>
+        </div>
+    );
+}
