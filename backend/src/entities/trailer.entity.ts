@@ -1,12 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
-import { Content } from './content.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+} from 'typeorm';
+import { Content } from '../contents/entities/content.entity';
 
 @Entity('trailers')
 export class Trailer {
   @PrimaryGeneratedColumn({ name: 'trailer_id' })
   trailerId: number;
 
-  @ManyToOne(() => Content, content => content.trailers, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Content, (content) => content.trailers, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'content_id' })
   content: Content;
 

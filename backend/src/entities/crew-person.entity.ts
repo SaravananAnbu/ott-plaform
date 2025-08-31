@@ -15,6 +15,6 @@ export class CrewPerson {
   @Column({ name: 'profile_pic', type: 'text', nullable: true })
   profilePic: string;
 
-  @OneToMany(() => ContentCrew, contentCrew => contentCrew.crewPerson)
+  @OneToMany(() => ContentCrew, (contentCrew) => contentCrew.crewPerson)
   contentCrews: ContentCrew[];
 }

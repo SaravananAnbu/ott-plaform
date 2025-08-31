@@ -1,5 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, OneToMany } from 'typeorm';
-import { User } from './user.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  OneToMany,
+} from 'typeorm';
+import { User } from '../users/entities/user.entity';
 import { QrLogin } from './qr-login.entity';
 import { Session } from './session.entity';
 
@@ -15,7 +23,12 @@ export class Device {
   @Column({ name: 'device_type', type: 'varchar', length: 30 })
   deviceType: string;
 
-  @Column({ name: 'device_model', type: 'varchar', length: 120, nullable: true })
+  @Column({
+    name: 'device_model',
+    type: 'varchar',
+    length: 120,
+    nullable: true,
+  })
   deviceModel: string;
 
   @Column({ name: 'os_version', type: 'varchar', length: 60, nullable: true })
@@ -27,9 +40,9 @@ export class Device {
   @CreateDateColumn({ name: 'registered_at', type: 'timestamptz' })
   registeredAt: Date;
 
-  @OneToMany(() => QrLogin, qrLogin => qrLogin.device)
+  @OneToMany(() => QrLogin, (qrLogin) => qrLogin.device)
   qrLogins: QrLogin[];
 
-  @OneToMany(() => Session, session => session.device)
+  @OneToMany(() => Session, (session) => session.device)
   sessions: Session[];
 }

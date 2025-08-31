@@ -1,12 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
-import { User } from './user.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+} from 'typeorm';
+import { User } from '../users/entities/user.entity';
 
 @Entity('otp_login')
 export class OtpLogin {
   @PrimaryGeneratedColumn({ name: 'otp_id' })
   otpId: number;
 
-  @ManyToOne(() => User, user => user.otpLogins, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, (user) => user.otpLogins, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: User;
 

@@ -3,12 +3,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './modules/user.module';
-import { ProfileModule } from './modules/profile.module';
-import { ContentModule } from './modules/content.module';
-import { PlanModule } from './modules/plan.module';
-import { SubscriptionModule } from './modules/subscription.module';
-import { GenreModule } from './modules/genre.module';
+import { UserModule } from './users/users.module';
+import { ProfileModule } from './profiles/profiles.module';
+import { ContentModule } from './contents/contents.module';
+import { PlanModule } from './plans/plans.module';
+import { SubscriptionModule } from './subscriptions/subscriptions.module';
+import { GenreModule } from './genres/genres.module';
+import { AuthModule } from './auth/auth.module';
 import * as entities from './entities';
 
 @Module({
@@ -33,6 +34,7 @@ import * as entities from './entities';
     PlanModule,
     SubscriptionModule,
     GenreModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

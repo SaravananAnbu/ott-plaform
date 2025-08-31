@@ -1,5 +1,11 @@
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { Content } from './content.entity';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Content } from '../contents/entities/content.entity';
 import { CrewPerson } from './crew-person.entity';
 
 @Entity('content_crew')
@@ -13,11 +19,15 @@ export class ContentCrew {
   @Column({ name: 'crew_id' })
   crewId: number;
 
-  @ManyToOne(() => Content, content => content.contentCrews, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Content, (content) => content.contentCrews, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'content_id' })
   content: Content;
 
-  @ManyToOne(() => CrewPerson, crewPerson => crewPerson.contentCrews, { onDelete: 'CASCADE' })
+  @ManyToOne(() => CrewPerson, (crewPerson) => crewPerson.contentCrews, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'crew_id' })
   crewPerson: CrewPerson;
 
