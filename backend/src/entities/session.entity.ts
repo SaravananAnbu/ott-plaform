@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Device } from './device.entity';
 import { SessionStatus } from '../enums';
 
@@ -7,7 +13,7 @@ export class Session {
   @PrimaryGeneratedColumn({ name: 'session_id' })
   sessionId: number;
 
-  @ManyToOne(() => Device, device => device.sessions, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Device, (device) => device.sessions, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'device_id' })
   device: Device;
 
@@ -23,7 +29,7 @@ export class Session {
   @Column({
     type: 'enum',
     enum: SessionStatus,
-    default: SessionStatus.ACTIVE
+    default: SessionStatus.ACTIVE,
   })
   status: SessionStatus;
 }

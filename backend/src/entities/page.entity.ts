@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  OneToMany,
+} from 'typeorm';
 import { Section } from './section.entity';
 
 @Entity('pages')
@@ -18,6 +24,6 @@ export class Page {
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   createdAt: Date;
 
-  @OneToMany(() => Section, section => section.page)
+  @OneToMany(() => Section, (section) => section.page)
   sections: Section[];
 }

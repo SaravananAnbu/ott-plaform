@@ -1,10 +1,13 @@
-/* Global styles for the CMS */
+
+/* Reset default styles for CMS */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -14,13 +17,5 @@ body {
 
 #root {
   height: 100vh;
-}
 
-/* Ant Design custom overrides */
-.ant-layout-sider {
-  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
-}
-
-.ant-layout-header {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
