@@ -123,7 +123,7 @@ const AppLayout: React.FC = () => {
                 trigger={null} 
                 collapsible 
                 collapsed={collapsed}
-                width={200}
+                width={250}
                 collapsedWidth={80}
                 style={{
                     height: '100vh',
@@ -150,13 +150,13 @@ const AppLayout: React.FC = () => {
                     }}
                 />
             </Sider>
-            <Layout style={{ marginLeft: collapsed ? 80 : 200, transition: 'margin-left 0.2s' }}>
+            <Layout style={{ marginLeft: collapsed ? 80 : 250, transition: 'margin-left 0.2s' }}>
                 <Header
                     style={{
                         position: 'fixed',
                         top: 0,
                         right: 0,
-                        left: collapsed ? 80 : 200,
+                        left: collapsed ? 80 : 250,
                         zIndex: 1000,
                         padding: '0 24px',
                         background: colorBgContainer,

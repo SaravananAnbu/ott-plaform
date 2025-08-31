@@ -211,7 +211,7 @@ const ProfilesPage: React.FC = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, padding: 20 }}>
         <Title level={2}>Profiles Management</Title>
         <Space>
           <Button
