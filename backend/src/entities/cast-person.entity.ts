@@ -18,6 +18,6 @@ export class CastPerson {
   @Column({ name: 'profile_pic', type: 'text', nullable: true })
   profilePic: string;
 
-  @OneToMany(() => ContentCast, contentCast => contentCast.castPerson)
+  @OneToMany(() => ContentCast, (contentCast) => contentCast.castPerson)
   contentCasts: ContentCast[];
 }

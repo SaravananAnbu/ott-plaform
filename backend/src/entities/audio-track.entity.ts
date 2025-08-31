@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Unique } from 'typeorm';
-import { Content } from './content.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  Unique,
+} from 'typeorm';
+import { Content } from '../contents/entities/content.entity';
 
 @Entity('audio_tracks')
 @Unique(['content', 'language'])
@@ -7,7 +14,9 @@ export class AudioTrack {
   @PrimaryGeneratedColumn({ name: 'audio_id' })
   audioId: number;
 
-  @ManyToOne(() => Content, content => content.audioTracks, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Content, (content) => content.audioTracks, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'content_id' })
   content: Content;
 

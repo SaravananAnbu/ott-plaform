@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany, Unique } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+  Unique,
+} from 'typeorm';
 import { Series } from './series.entity';
 import { Episode } from './episode.entity';
 
@@ -8,7 +16,7 @@ export class Season {
   @PrimaryGeneratedColumn({ name: 'season_id' })
   seasonId: number;
 
-  @ManyToOne(() => Series, series => series.seasons, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Series, (series) => series.seasons, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'series_id' })
   series: Series;
 
@@ -24,6 +32,6 @@ export class Season {
   @Column({ name: 'poster_url', type: 'text', nullable: true })
   posterUrl: string;
 
-  @OneToMany(() => Episode, episode => episode.season)
+  @OneToMany(() => Episode, (episode) => episode.season)
   episodes: Episode[];
 }
