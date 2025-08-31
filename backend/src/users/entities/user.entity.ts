@@ -11,6 +11,7 @@ import { OtpLogin } from '../../entities/otp-login.entity';
 import { QrLogin } from '../../entities/qr-login.entity';
 import { Subscription } from '../../subscriptions/entities/subscription.entity';
 import { Payment } from '../../entities/payment.entity';
+import { UserRole } from '../../enums/user-role.enum';
 
 @Entity('users')
 export class User {
@@ -29,8 +30,18 @@ export class User {
   @Column({ type: 'varchar', length: 255, unique: true, nullable: true })
   email: string;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  password: string;
+
   @Column({ type: 'varchar', length: 2, nullable: true })
   country: string;
+
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   createdAt: Date;

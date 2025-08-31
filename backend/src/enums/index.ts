@@ -8,3 +8,4 @@ export * from './placement-section.enum';
 export * from './session-status.enum';
 export * from './content-status.enum';
 export * from './rating-scale.enum';
+export * from './user-role.enum';

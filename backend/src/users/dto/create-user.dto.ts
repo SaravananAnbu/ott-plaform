@@ -4,7 +4,9 @@ import {
   IsString,
   Length,
   IsBoolean,
+  IsEnum,
 } from 'class-validator';
+import { UserRole } from '../../enums/user-role.enum';
 
 export class CreateUserDto {
   @IsOptional()
@@ -19,8 +21,17 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
+  @Length(6, 255)
+  password?: string;
+
+  @IsOptional()
+  @IsString()
   @Length(2, 2)
   country?: string;
+
+  @IsOptional()
+  @IsEnum(UserRole)
+  role?: UserRole;
 
   @IsOptional()
   @IsBoolean()

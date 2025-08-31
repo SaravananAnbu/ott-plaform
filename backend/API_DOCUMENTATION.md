@@ -4,20 +4,33 @@ This NestJS backend provides a comprehensive API for an OTT (Over-The-Top) strea
 
 ## Features
 
+### Authentication & Security
+- **JWT Authentication** with role-based access control
+- **Password hashing** using bcryptjs
+- **Joi validation** for request data validation
+- **Role-based guards** protecting sensitive endpoints
+
 ### Implemented Entities & API Endpoints
 
+#### Authentication
+- **Auth** (`/auth`)
+  - `POST /auth/register` - Register new user (with email/phone + password)
+  - `POST /auth/login` - User login (returns JWT token)
+
 #### Core User Management
-- **Users** (`/users`)
-  - `GET /users` - Get all users
+- **Users** (`/users`) - **Protected: Requires JWT authentication**
+  - `GET /users` - Get all users (Admin/Moderator only)
   - `GET /users/:id` - Get user by ID
-  - `POST /users` - Create new user
-  - `PATCH /users/:id` - Update user
-  - `DELETE /users/:id` - Delete user
+  - `POST /users` - Create new user (Admin only)
+  - `POST /users/joi` - Create user with Joi validation (Admin only)
+  - `PATCH /users/:id` - Update user (Admin only)
+  - `PATCH /users/:id/joi` - Update user with Joi validation (Admin only)
+  - `DELETE /users/:id` - Delete user (Admin only)
   - `GET /users/email/:email` - Find user by email
   - `GET /users/phone/:phoneNumber` - Find user by phone
 
-- **Profiles** (`/profiles`)
-  - `GET /profiles` - Get all profiles
+- **Profiles** (`/profiles`) - **Protected: Requires JWT authentication**
+  - `GET /profiles` - Get all profiles (Admin/Moderator only)
   - `GET /profiles/:id` - Get profile by ID
   - `POST /profiles` - Create new profile
   - `PATCH /profiles/:id` - Update profile
@@ -82,6 +95,56 @@ The implementation includes 31 entities covering:
 - Subscription Status, Payment Status
 - Session Status, Rating Scale
 - Section Layout, Profile Age Restriction
+- User Roles (Admin, User, Moderator)
+
+## Authentication & Security
+
+### JWT Authentication
+The platform uses JWT (JSON Web Tokens) for stateless authentication:
+
+1. **Register**: `POST /auth/register` - Create new user account
+2. **Login**: `POST /auth/login` - Authenticate and receive JWT token
+3. **Protected Routes**: Include JWT token in Authorization header
+
+### User Roles
+- **admin**: Full access to all endpoints
+- **moderator**: Read access to users and profiles
+- **user**: Default role for regular users
+
+### Request Examples
+
+#### Register User
+```bash
+curl -X POST http://localhost:3001/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123",
+    "role": "user"
+  }'
+```
+
+#### Login User
+```bash
+curl -X POST http://localhost:3001/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123"
+  }'
+```
+
+#### Access Protected Endpoint
+```bash
+curl -X GET http://localhost:3001/users \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### Validation
+The platform supports both **class-validator** (existing) and **Joi** validation:
+- Authentication endpoints use Joi validation
+- Alternative `/joi` endpoints demonstrate Joi validation
+- Regular endpoints continue using class-validator
 
 ## Setup & Configuration
 
@@ -107,6 +170,9 @@ DB_PORT=5432
 DB_USERNAME=postgres
 DB_PASSWORD=password
 DB_DATABASE=ott_platform
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here
 ```
 
 ### Running the Application

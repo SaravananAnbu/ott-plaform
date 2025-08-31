@@ -9,6 +9,7 @@ import { ContentModule } from './contents/contents.module';
 import { PlanModule } from './plans/plans.module';
 import { SubscriptionModule } from './subscriptions/subscriptions.module';
 import { GenreModule } from './genres/genres.module';
+import { AuthModule } from './auth/auth.module';
 import * as entities from './entities';
 
 @Module({
@@ -33,6 +34,7 @@ import * as entities from './entities';
     PlanModule,
     SubscriptionModule,
     GenreModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
