@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { UserModule } from './modules/user.module';
 import { ProfileModule } from './modules/profile.module';
 import { ContentModule } from './modules/content.module';
-import { PlanModule } from './modules/plan.module';
+import { PlanModule } from './plans/plans.module';
 import { SubscriptionModule } from './modules/subscription.module';
 import { GenreModule } from './modules/genre.module';
 import * as entities from './entities';

@@ -4,7 +4,7 @@ export * from './otp-login.entity';
 export * from './device.entity';
 export * from './qr-login.entity';
 export * from './session.entity';
-export * from './plan.entity';
+export * from '../plans/entities/plan.entity';
 export * from './subscription.entity';
 export * from './payment.entity';
 export * from './player.entity';

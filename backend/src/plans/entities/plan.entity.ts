@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
-import { Subscription } from './subscription.entity';
+import { Subscription } from '../../entities/subscription.entity';
 
 @Entity('plans')
 export class Plan {

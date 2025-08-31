@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { User } from './user.entity';
-import { Plan } from './plan.entity';
+import { Plan } from '../plans/entities/plan.entity';
 import { Payment } from './payment.entity';
 import { SubscriptionStatus } from '../enums';
 
