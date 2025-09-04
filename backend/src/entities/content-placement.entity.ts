@@ -37,6 +37,6 @@ export class ContentPlacement {
   @Column({ name: 'end_date', type: 'date', nullable: true })
   endDate: Date;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }

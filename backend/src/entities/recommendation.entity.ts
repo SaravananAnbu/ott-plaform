@@ -30,6 +30,6 @@ export class Recommendation {
   @Column({ type: 'decimal', precision: 6, scale: 4 })
   score: number;
 
-  @Column({ name: 'generated_at', type: 'timestamptz', default: () => 'NOW()' })
+  @Column({ name: 'generated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   generatedAt: Date;
 }

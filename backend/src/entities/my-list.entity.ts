@@ -28,6 +28,6 @@ export class MyList {
   @JoinColumn({ name: 'content_id' })
   content: Content;
 
-  @CreateDateColumn({ name: 'added_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'added_at', type: 'timestamp' })
   addedAt: Date;
 }

@@ -41,7 +41,7 @@ export class Subscription {
   @Column({ name: 'auto_renew', type: 'boolean', default: true })
   autoRenew: boolean;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany(() => Payment, (payment) => payment.subscription)

@@ -20,12 +20,12 @@ export class OtpLogin {
   @Column({ name: 'otp_code', type: 'varchar', length: 10 })
   otpCode: string;
 
-  @Column({ name: 'expires_at', type: 'timestamptz' })
+  @Column({ name: 'expires_at', type: 'timestamp' })
   expiresAt: Date;
 
   @Column({ name: 'is_used', type: 'boolean', default: false })
   isUsed: boolean;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }

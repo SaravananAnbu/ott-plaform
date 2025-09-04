@@ -56,13 +56,13 @@ export class PlatformUser {
   })
   status: UserStatus;
 
-  @Column({ name: 'last_login_at', type: 'timestamptz', nullable: true })
+  @Column({ name: 'last_login_at', type: 'timestamp', nullable: true })
   lastLoginAt: Date;
 
   @Column({ name: 'password_reset_token', type: 'varchar', length: 255, nullable: true })
   passwordResetToken: string;
 
-  @Column({ name: 'password_reset_expires', type: 'timestamptz', nullable: true })
+  @Column({ name: 'password_reset_expires', type: 'timestamp', nullable: true })
   passwordResetExpires: Date;
 
   @Column({ name: 'email_verified', type: 'boolean', default: false })
@@ -74,9 +74,9 @@ export class PlatformUser {
   @Column({ name: 'two_factor_secret', type: 'varchar', length: 255, nullable: true })
   twoFactorSecret: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 }

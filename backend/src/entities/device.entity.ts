@@ -37,7 +37,7 @@ export class Device {
   @Column({ name: 'app_version', type: 'varchar', length: 40, nullable: true })
   appVersion: string;
 
-  @CreateDateColumn({ name: 'registered_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'registered_at', type: 'timestamp' })
   registeredAt: Date;
 
   @OneToMany(() => QrLogin, (qrLogin) => qrLogin.device)

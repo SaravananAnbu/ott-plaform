@@ -42,7 +42,7 @@ export class Payment {
   })
   transactionId: string;
 
-  @Column({ name: 'payment_date', type: 'timestamptz', default: () => 'NOW()' })
+  @Column({ name: 'payment_date', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   paymentDate: Date;
 
   @Column({

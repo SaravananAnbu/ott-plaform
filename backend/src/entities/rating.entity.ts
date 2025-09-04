@@ -38,6 +38,6 @@ export class Rating {
   @Column({ name: 'review_text', type: 'text', nullable: true })
   reviewText: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }

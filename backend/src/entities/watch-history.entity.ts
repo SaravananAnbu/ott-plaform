@@ -45,6 +45,6 @@ export class WatchHistory {
   })
   watchedPercentage: number;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 }

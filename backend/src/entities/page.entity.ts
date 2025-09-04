@@ -21,7 +21,7 @@ export class Page {
   @Column({ type: 'varchar', length: 120, unique: true })
   slug: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany(() => Section, (section) => section.page)

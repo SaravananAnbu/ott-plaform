@@ -46,10 +46,10 @@ export class Genre {
   @Column({ name: 'meta_description', type: 'text', nullable: true })
   metaDescription: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
   @OneToMany(() => ContentGenre, (contentGenre) => contentGenre.genre)

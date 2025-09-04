@@ -28,6 +28,6 @@ export class Trailer {
   @Column({ type: 'varchar', length: 40, nullable: true })
   language: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 }

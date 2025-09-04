@@ -31,8 +31,8 @@ export class ExternalRating {
 
   @Column({
     name: 'last_synced_at',
-    type: 'timestamptz',
-    default: () => 'NOW()',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
   })
   lastSyncedAt: Date;
 }

@@ -139,7 +139,7 @@ export class Content {
   @Column({ name: 'content_warning', type: 'text', nullable: true })
   contentWarning: string;
 
-  @Column({ name: 'scheduled_release_date', type: 'timestamptz', nullable: true })
+  @Column({ name: 'scheduled_release_date', type: 'timestamp', nullable: true })
   scheduledReleaseDate: Date;
 
   @ManyToOne(() => Player, { onDelete: 'SET NULL', nullable: true })
@@ -157,10 +157,10 @@ export class Content {
   })
   status: ContentStatus;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
   @OneToOne(() => Series, (series) => series.content)

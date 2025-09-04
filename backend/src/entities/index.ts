@@ -29,3 +29,4 @@ export * from './recommendation.entity';
 export * from './page.entity';
 export * from './section.entity';
 export * from './content-placement.entity';
+export * from './provider.entity';

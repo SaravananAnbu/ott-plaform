@@ -41,7 +41,7 @@ export class Section {
   })
   layoutType: SectionLayout;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany(

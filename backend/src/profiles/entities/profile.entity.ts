@@ -42,7 +42,7 @@ export class Profile {
   @Column({ name: 'avatar_url', type: 'text', nullable: true })
   avatarUrl: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany(() => MyList, (myList) => myList.profile)

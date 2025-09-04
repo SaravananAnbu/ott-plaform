@@ -92,10 +92,10 @@ export class Provider {
   @Column({ type: 'json', nullable: true })
   metadata: Record<string, any>; // Additional provider-specific data
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
   // Relationships
