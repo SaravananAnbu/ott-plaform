@@ -93,7 +93,7 @@ export default function ContentRow({
       {/* Content Container */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4"
+        className="flex gap-4 overflow-x-auto scrollbar-hide pb-20"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {contents.map((content, index) => (

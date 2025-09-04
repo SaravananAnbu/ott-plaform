@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Ubuntu } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const ubuntu = Ubuntu({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-ubuntu",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans antialiased bg-black text-white min-h-screen`}>
+      <body className={`${ubuntu.variable} font-ubuntu antialiased bg-black text-white min-h-screen`}>
         {children}
       </body>
     </html>
