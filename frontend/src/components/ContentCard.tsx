@@ -144,7 +144,7 @@ export default function ContentCard({
 
       {/* Enhanced Hover Card */}
       {isHovered && (
-        <div className="absolute top-0 left-0 w-full bg-gray-900 rounded-lg shadow-2xl border border-gray-700 z-50 transform scale-110 origin-center">
+        <div className="absolute top-0 left-0 w-full bg-gray-900 rounded-lg shadow-2xl border border-gray-700 z-50 transform scale-110 origin-top">
           <div className="aspect-[2/3] relative rounded-t-lg overflow-hidden">
             <img
               src={getImageSrc()}
