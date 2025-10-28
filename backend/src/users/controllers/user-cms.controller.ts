@@ -7,18 +7,14 @@ import {
   Param,
   Delete,
   ParseIntPipe,
-  UseGuards,
+  Query,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../../auth/guards/roles.guard';
-import { Roles } from '../../auth/decorators/roles.decorator';
-import { UserRole } from '../../enums/user-role.enum';
 
-@Controller('users')
-export class UserController {
+@Controller('cms/users')
+export class UserCmsController {
   constructor(private readonly userService: UserService) {}
 
   @Post()

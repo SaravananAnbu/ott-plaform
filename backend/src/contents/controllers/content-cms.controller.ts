@@ -13,8 +13,8 @@ import { ContentService } from '../services/content.service';
 import { CreateContentDto } from '../dto/create-content.dto';
 import { UpdateContentDto } from '../dto/update-content.dto';
 
-@Controller('content')
-export class ContentController {
+@Controller('cms/content')
+export class ContentCmsController {
   constructor(private readonly contentService: ContentService) {}
 
   @Post()

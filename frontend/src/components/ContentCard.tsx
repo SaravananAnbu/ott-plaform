@@ -45,7 +45,7 @@ export default function ContentCard({
 
   return (
     <div 
-      className="group relative transition-all duration-300 ease-in-out transform hover:scale-105 hover:z-50"
+      className="group relative transition-all duration-300 ease-in-out font-ubuntu"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{ 
@@ -53,7 +53,7 @@ export default function ContentCard({
       }}
     >
       {/* Main Card */}
-      <div className="relative w-full aspect-[2/3] rounded-lg overflow-hidden bg-gray-900 cursor-pointer">
+      <div className="relative w-full aspect-[2/3] rounded-lg overflow-hidden bg-gray-900 cursor-pointer transform transition-transform duration-300 hover:scale-105">
         <img
           src={getImageSrc()}
           alt={content.title}
@@ -65,29 +65,30 @@ export default function ContentCard({
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
-        {/* Content Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <h3 className="font-bold text-sm mb-1 line-clamp-2">{content.title}</h3>
-          <div className="flex items-center gap-2 text-xs text-gray-300 mb-2">
-            <span className="bg-green-600 px-1 rounded text-white font-medium">
-              {content.rating || 'N/A'}
-            </span>
-            <span>{content.year}</span>
-            <span>{content.maturityRating}</span>
-            <span>{formatDuration(content.duration)}</span>
+        {/* Rating Badge */}
+        <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded font-ubuntu font-medium">
+          ⭐ {content.rating || 'N/A'}
+        </div>
+
+        {/* Genre Tag */}
+        {content.genre && (
+          <div className="absolute top-2 left-2 bg-netflix-red text-white text-xs px-2 py-1 rounded font-ubuntu font-medium">
+            {content.genre}
           </div>
-          
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2">
+        )}
+        
+        {/* Hover Action Buttons - Only visible on hover */}
+        <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+          <div className="flex items-center gap-2 mb-4">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onPlay?.(content);
               }}
-              className="flex items-center justify-center w-8 h-8 bg-white text-black rounded-full hover:bg-gray-200 transition-colors"
+              className="flex items-center justify-center w-10 h-10 bg-white text-black rounded-full hover:bg-gray-200 transition-colors font-ubuntu"
               title="Play"
             >
-              <Play className="w-4 h-4 ml-0.5" fill="currentColor" />
+              <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
             </button>
             
             <button
@@ -95,13 +96,13 @@ export default function ContentCard({
                 e.stopPropagation();
                 onAddToList?.(content);
               }}
-              className="flex items-center justify-center w-8 h-8 border-2 border-gray-400 rounded-full hover:border-white transition-colors"
+              className="flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-full hover:border-white transition-colors"
               title={isInList ? "Remove from My List" : "Add to My List"}
             >
               {isInList ? (
-                <Check className="w-4 h-4 text-white" />
+                <Check className="w-5 h-5 text-white" />
               ) : (
-                <Plus className="w-4 h-4 text-gray-400 group-hover:text-white" />
+                <Plus className="w-5 h-5 text-gray-400 group-hover:text-white" />
               )}
             </button>
             
@@ -110,10 +111,10 @@ export default function ContentCard({
                 e.stopPropagation();
                 // Add like functionality here
               }}
-              className="flex items-center justify-center w-8 h-8 border-2 border-gray-400 rounded-full hover:border-white transition-colors"
+              className="flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-full hover:border-white transition-colors"
               title="Like"
             >
-              <ThumbsUp className="w-4 h-4 text-gray-400 group-hover:text-white" />
+              <ThumbsUp className="w-5 h-5 text-gray-400 group-hover:text-white" />
             </button>
             
             <button
@@ -121,31 +122,32 @@ export default function ContentCard({
                 e.stopPropagation();
                 onMoreInfo?.(content);
               }}
-              className="flex items-center justify-center w-8 h-8 border-2 border-gray-400 rounded-full hover:border-white transition-colors ml-auto"
+              className="flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-full hover:border-white transition-colors ml-auto"
               title="More Info"
             >
-              <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-white" />
+              <ChevronDown className="w-5 h-5 text-gray-400 group-hover:text-white" />
             </button>
           </div>
-        </div>
-
-        {/* Rating Badge */}
-        <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-          ⭐ {content.rating || 'N/A'}
-        </div>
-
-        {/* Genre Tag */}
-        {content.genre && (
-          <div className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-medium">
-            {content.genre}
+          
+          {/* Content Info */}
+          <div className="text-white">
+            <h3 className="font-ubuntu font-bold text-sm mb-2 line-clamp-2">{content.title}</h3>
+            <div className="flex items-center gap-2 text-xs text-gray-300">
+              <span className="bg-green-600 px-1.5 py-0.5 rounded text-white font-ubuntu font-medium">
+                {content.rating || 'N/A'}
+              </span>
+              <span className="font-ubuntu">{content.year}</span>
+              <span className="font-ubuntu">{content.maturityRating}</span>
+              <span className="font-ubuntu">{formatDuration(content.duration)}</span>
+            </div>
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Enhanced Hover Card */}
+      {/* Enhanced Hover Card - Positioned to avoid overlap */}
       {isHovered && (
-        <div className="absolute top-0 left-0 w-full bg-gray-900 rounded-lg shadow-2xl border border-gray-700 z-50 transform scale-110 origin-top">
-          <div className="aspect-[2/3] relative rounded-t-lg overflow-hidden">
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-80 bg-gray-900 rounded-lg shadow-2xl border border-gray-700 z-100 scale-110 origin-top animate-scale-in">
+          <div className="aspect-video relative rounded-t-lg overflow-hidden">
             <img
               src={getImageSrc()}
               alt={content.title}
@@ -155,7 +157,7 @@ export default function ContentCard({
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent" />
           </div>
           
-          <div className="p-4">
+          <div className="p-4 font-ubuntu">
             <div className="flex items-center gap-2 mb-3">
               <button
                 onClick={() => onPlay?.(content)}
@@ -180,20 +182,20 @@ export default function ContentCard({
               </button>
             </div>
 
-            <h3 className="text-white font-bold text-sm mb-2 line-clamp-2">{content.title}</h3>
+            <h3 className="text-white font-ubuntu font-bold text-base mb-2 line-clamp-2">{content.title}</h3>
             
             <div className="flex items-center gap-2 text-xs text-gray-300 mb-3">
-              <span className="text-green-400 font-medium">{content.rating}% Match</span>
-              <span className="border border-gray-600 px-1">{content.maturityRating}</span>
-              <span>{formatDuration(content.duration)}</span>
-              <span>{content.year}</span>
+              <span className="text-green-400 font-ubuntu font-medium">{content.rating}% Match</span>
+              <span className="border border-gray-600 px-1 font-ubuntu">{content.maturityRating}</span>
+              <span className="font-ubuntu">{formatDuration(content.duration)}</span>
+              <span className="font-ubuntu">{content.year}</span>
             </div>
 
-            <p className="text-gray-300 text-xs line-clamp-3 mb-3">{content.description}</p>
+            <p className="text-gray-300 text-sm line-clamp-3 mb-3 font-ubuntu leading-relaxed">{content.description}</p>
             
             <div className="flex items-center gap-1 text-xs text-gray-400">
-              <span>Cast:</span>
-              <span className="line-clamp-1">
+              <span className="font-ubuntu font-medium">Cast:</span>
+              <span className="line-clamp-1 font-ubuntu">
                 {content.cast?.slice(0, 3).map(c => c.name).join(', ') || 'Not available'}
               </span>
             </div>

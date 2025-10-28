@@ -79,14 +79,14 @@ export default function HeroSection({
                 <span>{content.imdbRating}</span>
               </div>
             )}
-            <span>{formatYear(content.releaseDate)}</span>
+            <span>{formatYear(content?.releaseDate || '')}</span>
             {content.durationMinutes && (
               <span>{formatDuration(content.durationMinutes)}</span>
             )}
             <span className="border border-gray-500 px-2 py-0.5 text-xs rounded">
-              {getContentRating(content.maturityRating)}
+              {getContentRating(content?.maturityRating || '')}
             </span>
-            <span className="text-gray-400">{content.language}</span>
+            <span className="text-gray-400">{content?.language}</span>
           </div>
 
           {/* Description */}

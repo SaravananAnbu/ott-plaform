@@ -41,7 +41,7 @@ export default function EnhancedHeader({ profiles, currentProfile }: EnhancedHea
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-ubuntu",
         isScrolled ? "bg-black/95 backdrop-blur-md" : "bg-gradient-to-b from-black/80 to-transparent"
       )}
     >
@@ -49,8 +49,10 @@ export default function EnhancedHeader({ profiles, currentProfile }: EnhancedHea
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="text-red-600 text-2xl lg:text-3xl font-bold tracking-tight">
-              StreamFlix
+            <a href="/" className="flex items-center space-x-2 group">
+              <div className="text-netflix-red text-2xl lg:text-3xl font-ubuntu font-bold tracking-tight transition-transform group-hover:scale-105">
+                StreamFlix
+              </div>
             </a>
           </div>
 
@@ -61,7 +63,7 @@ export default function EnhancedHeader({ profiles, currentProfile }: EnhancedHea
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "text-sm font-medium transition-colors duration-200 hover:text-gray-300",
+                  "text-sm font-ubuntu font-medium transition-colors duration-200 hover:text-gray-300",
                   item.active ? "text-white" : "text-gray-400"
                 )}
               >
@@ -93,7 +95,7 @@ export default function EnhancedHeader({ profiles, currentProfile }: EnhancedHea
                   alt={currentProfile.name}
                   className="w-8 h-8 rounded object-cover"
                 />
-                <span className="hidden sm:block text-sm font-medium">{currentProfile.name}</span>
+                <span className="hidden sm:block text-sm font-ubuntu font-medium">{currentProfile.name}</span>
               </button>
 
               {/* Profile Dropdown Menu */}

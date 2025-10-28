@@ -63,9 +63,9 @@ export default function ContentRow({
   }
 
   return (
-    <div className="relative group px-4 md:px-16">
+    <div className="relative group px-4 md:px-16 mb-12 font-ubuntu">
       {/* Section Title */}
-      <h2 className="text-white text-xl md:text-2xl font-bold mb-4 px-2">
+      <h2 className="text-white text-xl md:text-2xl font-ubuntu font-bold mb-6 px-2">
         {title}
       </h2>
 
@@ -73,7 +73,7 @@ export default function ContentRow({
       {canScrollLeft && (
         <button
           onClick={() => scroll('left')}
-          className="absolute left-2 md:left-12 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-12 h-12 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+          className="absolute left-2 md:left-12 top-1/2 -translate-y-1/2 z-50 flex items-center justify-center w-12 h-12 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-6 h-6" />
@@ -83,7 +83,7 @@ export default function ContentRow({
       {canScrollRight && (
         <button
           onClick={() => scroll('right')}
-          className="absolute right-2 md:right-12 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-12 h-12 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
+          className="absolute right-2 md:right-12 top-1/2 -translate-y-1/2 z-50 flex items-center justify-center w-12 h-12 bg-black/50 hover:bg-black/80 text-white rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 hover:scale-110"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-6 h-6" />
@@ -93,7 +93,7 @@ export default function ContentRow({
       {/* Content Container */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-20"
+        className="flex gap-4 overflow-x-auto scrollbar-hide pb-24"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {contents.map((content, index) => (

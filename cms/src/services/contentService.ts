@@ -139,9 +139,16 @@ export interface UpdateContentDto {
 }
 
 export const contentService = {
-  getAll: async (category?: string, status?: string): Promise<Content[]> => {
+  getAll: async (
+    provider?: string,
+    genre?: string,
+    type?: string,
+    status?: string
+  ): Promise<Content[]> => {
     const params = new URLSearchParams();
-    if (category) params.append('category', category);
+    if (provider) params.append('provider', provider);
+    if (genre) params.append('genre', genre);
+    if (type) params.append('type', type);
     if (status) params.append('status', status);
     
     const response = await apiClient.get(`/content?${params.toString()}`);

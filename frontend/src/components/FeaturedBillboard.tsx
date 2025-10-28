@@ -35,7 +35,7 @@ export default function FeaturedBillboard({
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-start overflow-hidden">
+    <section className="relative h-screen flex items-center justify-start overflow-hidden font-ubuntu">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -57,17 +57,17 @@ export default function FeaturedBillboard({
           {/* Category Badge */}
           {content.genre && (
             <div className="inline-flex items-center mb-4">
-              <span className="bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full">
+              <span className="bg-netflix-red text-white text-sm font-ubuntu font-bold px-3 py-1 rounded-full">
                 STREAMFLIX ORIGINAL
               </span>
-              <span className="ml-3 text-gray-300 text-sm font-medium">
+              <span className="ml-3 text-gray-300 text-sm font-ubuntu font-medium">
                 {content.genre}
               </span>
             </div>
           )}
 
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-ubuntu font-black text-white mb-6 leading-tight tracking-tight">
             {content.title}
           </h1>
 
@@ -75,28 +75,28 @@ export default function FeaturedBillboard({
           <div className="flex items-center gap-4 text-white mb-6">
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-yellow-400 fill-current" />
-              <span className="text-lg font-semibold">{content.rating || 'N/A'}</span>
+              <span className="text-lg font-ubuntu font-semibold">{content.rating || 'N/A'}</span>
             </div>
             <span className="text-gray-300">•</span>
-            <span className="text-lg">{content.year}</span>
+            <span className="text-lg font-ubuntu">{content.year}</span>
             <span className="text-gray-300">•</span>
-            <span className="border border-gray-400 px-2 py-0.5 text-sm font-medium">
+            <span className="border border-gray-400 px-2 py-0.5 text-sm font-ubuntu font-medium">
               {content.maturityRating}
             </span>
             <span className="text-gray-300">•</span>
-            <span className="text-lg">{content.duration || '2h 0m'}</span>
+            <span className="text-lg font-ubuntu">{content.duration || '2h 0m'}</span>
           </div>
 
           {/* Description */}
-          <p className="text-white text-lg sm:text-xl leading-relaxed mb-8 max-w-xl">
+          <p className="text-white text-lg sm:text-xl font-ubuntu leading-relaxed mb-8 max-w-xl">
             {formatDescription(content.description)}
           </p>
 
           {/* Cast */}
           {content.cast && content.cast.length > 0 && (
             <div className="mb-8">
-              <p className="text-gray-300 text-base">
-                <span className="text-white font-semibold">Starring:</span>{' '}
+              <p className="text-gray-300 text-base font-ubuntu">
+                <span className="text-white font-ubuntu font-semibold">Starring:</span>{' '}
                 {content.cast.slice(0, 3).map(c => c.name).join(', ')}
               </p>
             </div>
@@ -106,7 +106,7 @@ export default function FeaturedBillboard({
           <div className="flex items-center gap-4">
             <button
               onClick={onPlay}
-              className="flex items-center gap-3 bg-white text-black font-bold px-8 py-4 rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg"
+              className="flex items-center gap-3 bg-white text-black font-ubuntu font-bold px-8 py-4 rounded-lg hover:bg-gray-200 transition-all duration-200 text-lg"
             >
               <Play className="w-6 h-6 fill-current" />
               Play
@@ -114,7 +114,7 @@ export default function FeaturedBillboard({
 
             <button
               onClick={onMoreInfo}
-              className="flex items-center gap-3 bg-gray-600/80 text-white font-bold px-8 py-4 rounded-lg hover:bg-gray-600 transition-all duration-200 text-lg"
+              className="flex items-center gap-3 bg-gray-600/80 text-white font-ubuntu font-bold px-8 py-4 rounded-lg hover:bg-gray-600 transition-all duration-200 text-lg"
             >
               <Info className="w-6 h-6" />
               More Info

@@ -87,56 +87,38 @@ export interface UpdateProviderDto {
 const API_BASE_URL = '/api/providers';
 
 export const providerService = {
-  // Get all providers
-  async getAll(activeOnly?: boolean): Promise<Provider[]> {
-    const params = activeOnly ? '?active=true' : '';
-    const response = await apiClient.get(`${API_BASE_URL}${params}`);
+  getAll: async (type?: string): Promise<Provider[]> => {
+    const params = type ? `?type=${type}` : '';
+    const response = await apiClient.get(`/providers${params}`);
     return response.data;
   },
 
-  // Get provider by ID
-  async getById(id: number): Promise<Provider> {
-    const response = await apiClient.get(`${API_BASE_URL}/${id}`);
+  getById: async (id: number): Promise<Provider> => {
+    const response = await apiClient.get(`/providers/${id}`);
     return response.data;
   },
 
-  // Get featured providers
-  async getFeatured(): Promise<Provider[]> {
-    const response = await apiClient.get(`${API_BASE_URL}/featured`);
+  create: async (providerData: CreateProviderDto): Promise<Provider> => {
+    const response = await apiClient.post('/providers', providerData);
     return response.data;
   },
 
-  // Get providers by type
-  async getByType(type: ProviderType): Promise<Provider[]> {
-    const response = await apiClient.get(`${API_BASE_URL}/type/${type}`);
+  update: async (id: number, providerData: UpdateProviderDto): Promise<Provider> => {
+    const response = await apiClient.patch(`/providers/${id}`, providerData);
     return response.data;
   },
 
-  // Create new provider
-  async create(data: CreateProviderDto): Promise<Provider> {
-    const response = await apiClient.post(API_BASE_URL, data);
+  delete: async (id: number): Promise<void> => {
+    await apiClient.delete(`/providers/${id}`);
+  },
+
+  getFeatured: async (): Promise<Provider[]> => {
+    const response = await apiClient.get('/providers/featured');
     return response.data;
   },
 
-  // Update provider
-  async update(id: number, data: UpdateProviderDto): Promise<Provider> {
-    const response = await apiClient.patch(`${API_BASE_URL}/${id}`, data);
-    return response.data;
-  },
-
-  // Delete provider
-  async delete(id: number): Promise<void> {
-    await apiClient.delete(`${API_BASE_URL}/${id}`);
-  },
-
-  // Update content count
-  async updateContentCount(id: number): Promise<void> {
-    await apiClient.patch(`${API_BASE_URL}/${id}/update-content-count`);
-  },
-
-  // Search providers
-  async search(query: string): Promise<Provider[]> {
-    const response = await apiClient.get(`${API_BASE_URL}?search=${encodeURIComponent(query)}`);
+  updateContentCount: async (id: number): Promise<Provider> => {
+    const response = await apiClient.patch(`/providers/${id}/update-content-count`);
     return response.data;
   },
 };

@@ -140,7 +140,7 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center font-ubuntu">
         <div className="text-white text-xl">Loading amazing content...</div>
       </div>
     );
@@ -148,14 +148,14 @@ export default function HomePage() {
 
   if (!featuredContent || !contentCategories) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center font-ubuntu">
         <div className="text-white text-xl">Failed to load content</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black font-ubuntu">
       <EnhancedHeader profiles={profiles} currentProfile={currentProfile} />
 
       <FeaturedBillboard

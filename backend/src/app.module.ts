@@ -10,6 +10,9 @@ import { PlanModule } from './plans/plans.module';
 import { SubscriptionModule } from './subscriptions/subscriptions.module';
 import { GenreModule } from './genres/genres.module';
 import { AuthModule } from './auth/auth.module';
+import { PlatformUsersModule } from './platform-users/platform-users.module';
+import { RoleModule } from './roles/roles.module';
+import { ProvidersModule } from './providers/providers.module';
 import {
   User,
   Profile,
@@ -44,6 +47,8 @@ import {
   ContentPlacement,
   Provider,
 } from './entities';
+import { PlatformUser } from './platform-users/entities/platform-user.entity';
+import { Role } from './roles/entities/role.entity';
 
 @Module({
   imports: [
@@ -90,6 +95,8 @@ import {
         Section,
         ContentPlacement,
         Provider,
+        PlatformUser,
+        Role,
       ],
       synchronize: process.env.NODE_ENV !== 'production',
       logging: process.env.NODE_ENV === 'development',
@@ -101,6 +108,9 @@ import {
     SubscriptionModule,
     GenreModule,
     AuthModule,
+    PlatformUsersModule,
+    RoleModule,
+    ProvidersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

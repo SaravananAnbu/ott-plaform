@@ -37,7 +37,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-black text-gray-300 mt-20">
+    <footer className="bg-black text-gray-300 mt-20 font-ubuntu">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Social Links */}
         <div className="flex space-x-6 mb-8">
@@ -59,13 +59,13 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="text-white font-semibold mb-4">{category}</h3>
+              <h3 className="text-white font-ubuntu font-semibold mb-4">{category}</h3>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-gray-400 hover:text-white transition-colors"
+                      className="text-sm text-gray-400 hover:text-white transition-colors font-ubuntu"
                     >
                       {link.name}
                     </Link>

@@ -82,7 +82,7 @@ function App() {
                         <Route path="/" element={<AppLayout />}>
                             <Route index element={<Dashboard />} />
                             <Route path="users" element={<UsersPage />} />
-                            <Route path="profiles" element={<ProfilesPage />} />
+                            {/* <Route path="profiles" element={<ProfilesPage />} /> */}
                             <Route path="content" element={<ContentPage />} />
                             <Route path="content/create" element={<ContentCreateEditPage />} />
                             <Route path="content/edit/:id" element={<ContentCreateEditPage />} />

@@ -75,7 +75,7 @@ export const roleService = {
   },
 
   update: async (id: number, roleData: UpdateRoleDto): Promise<Role> => {
-    const response = await apiClient.put(`/roles/${id}`, roleData);
+    const response = await apiClient.patch(`/roles/${id}`, roleData);
     return response.data;
   },
 
@@ -83,7 +83,8 @@ export const roleService = {
     await apiClient.delete(`/roles/${id}`);
   },
 
-  getPermissions: (): string[] => {
-    return Object.values(PlatformPermission);
+  getPermissions: async (): Promise<string[]> => {
+    const response = await apiClient.get('/roles/permissions');
+    return response.data;
   },
 };

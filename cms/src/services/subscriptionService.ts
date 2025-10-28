@@ -37,8 +37,17 @@ export interface UpdateSubscriptionDto {
 }
 
 export const subscriptionService = {
-  getAll: async (): Promise<Subscription[]> => {
-    const response = await apiClient.get('/subscriptions');
+  getAll: async (
+    userId?: number,
+    planId?: number,
+    status?: string
+  ): Promise<Subscription[]> => {
+    const params = new URLSearchParams();
+    if (userId) params.append('userId', userId.toString());
+    if (planId) params.append('planId', planId.toString());
+    if (status) params.append('status', status);
+    
+    const response = await apiClient.get(`/subscriptions?${params.toString()}`);
     return response.data;
   },
 
